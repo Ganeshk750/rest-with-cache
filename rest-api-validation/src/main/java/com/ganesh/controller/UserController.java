@@ -2,6 +2,8 @@ package com.ganesh.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ import com.ganesh.service.UserService;
 @RestController
 public class UserController {
 
-    Logger logger = LoggerFactory.getLogger("UserManagementApp");
+    Logger logger = LoggerFactory.getLogger("UserApp");
 
     @Autowired
     private UserService userService;
@@ -39,7 +41,7 @@ public class UserController {
 
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
-    public User addUser(@RequestBody User user) {
+    public User addUser(@RequestBody @Valid User user) {
         return userService.addUser(user);
     }
 
