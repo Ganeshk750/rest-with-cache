@@ -3,11 +3,12 @@ package com.ganesh.controller;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,14 +17,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
 
 import com.ganesh.model.User;
 import com.ganesh.service.UserService;
 
 @RestController
+//@Validated
 public class UserController {
 
-    Logger logger = LoggerFactory.getLogger("UserApp");
+    Logger logger = LoggerFactory.getLogger("UserManagementApp");
 
     @Autowired
     private UserService userService;
@@ -35,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User getUser(@PathVariable int id) {
+    public User getUser(@PathVariable @Min(1000) int id) {
         return userService.getUser(id);
     }
 
@@ -46,7 +49,7 @@ public class UserController {
     }
 
     @PutMapping("/user")
-    public User updateUser(@RequestBody User user) {
+    public User updateUser(@RequestBody @Valid User user) {
         return userService.updateUser(user);
     }
 
@@ -56,4 +59,3 @@ public class UserController {
     }
 
 }
-
