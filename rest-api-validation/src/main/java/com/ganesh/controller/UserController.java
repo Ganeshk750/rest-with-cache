@@ -23,7 +23,7 @@ import com.ganesh.model.User;
 import com.ganesh.service.UserService;
 
 @RestController
-//@Validated
+@Validated
 public class UserController {
 
     Logger logger = LoggerFactory.getLogger("UserManagementApp");
@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User getUser(@Valid @PathVariable @Min(1000) int id) {
+    public User getUser(@PathVariable @Min(1000) int id) {
         return userService.getUser(id);
     }
 

@@ -1,11 +1,18 @@
 package com.ganesh.model;
 
+import java.util.List;
+
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
+
+import com.ganesh.validators.AddressObjectValidation;
+import com.ganesh.validators.AddressValidation;
 
 
 public class User {
@@ -18,10 +25,21 @@ public class User {
 	private String name;
 	
 	@NotNull
+	@AddressValidation
 	private String address;
 	
 	@Email
 	private String email;
+	
+   /**
+     * Password must be between 4 and 8 digits long and include at least one numeric digit.
+     */
+    @Pattern(regexp = "^(?=.*\\d).{4,8}$", message = "Password Must Be Between 4 and 8 digits")
+    private String password;
+    
+  @AddressObjectValidation(message = "at least 2 addresses")
+ // @Valid
+  private List<Address> addresses;
 
 	public int getId() {
 		return id;
@@ -53,6 +71,22 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 	
 	
