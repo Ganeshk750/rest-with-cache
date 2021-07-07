@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User getUser(@PathVariable @Min(1000) int id) {
+    public User getUser(@Valid @PathVariable @Min(1000) int id) {
         return userService.getUser(id);
     }
 
